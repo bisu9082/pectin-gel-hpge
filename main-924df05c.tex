@@ -1,0 +1,835 @@
+\documentclass[preprint,12pt]{elsarticle}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{float, graphicx, caption, xcolor, comment}
+\usepackage{subcaption}
+\captionsetup[sub]{labelformat=parens, labelsep=none, font=bf, position=top}
+\usepackage{booktabs}
+\usepackage{textcomp}
+\usepackage{soul, url}
+%\usepackage{lineno}
+\usepackage{multirow}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref, lineno}
+
+\journal{Journal of Environmental Radioactivity}
+
+%% ── Graphic path ──────────────────────────────────────────
+\graphicspath{{./figure/}}
+
+\begin{document}
+
+\begin{frontmatter}
+
+%% ── Title ─────────────────────────────────────────────────
+\title{Low-Methoxyl Pectin--Ca$^{2+}$ Gelation as a Sample
+Solidification Protocol for Marine Radioactivity Monitoring
+by HPGe Gamma Spectrometry}
+
+%% ── Authors ───────────────────────────────────────────────
+\author[inst1]{Yejin Lee\fnref{fn1}}   %%jinfriend98@naver.com
+\author[inst2]{Hyunsung Kim\fnref{fn1}}   %%khs030416@snu.ac.kr
+\author[inst1]{Myeongsik Shin}
+\author[inst1]{Gyoung Jun Choi}   %%cgj0212@hanmail.net
+\author[inst1]{Jun Yoo}
+\author[inst1]{Ku Kang\corref{cor1}}
+
+\affiliation[inst1]{organization={CBRN Defense Research Institute},
+            city={Seoul 06796},
+            country={Republic of Korea}}
+
+\affiliation[inst2]{organization={Department of Nuclear Engineering,
+            Seoul National University},
+            city={Seoul 08826},
+            country={Republic of Korea}}
+
+\cortext[cor1]{Corresponding author.
+  E-mail: \href{mailto:bisu9082@gmail.com}{bisu9082@gmail.com}}
+
+\fntext[fn1]{These authors contributed equally to this work.}
+
+%% ── Abstract ──────────────────────────────────────────────
+\begin{abstract}
+Marine radioactivity monitoring requires rapid, reliable sample preparation
+methods that remain functional aboard ships and other mobile platforms.
+Liquid seawater samples, however, are prone to geometric instability and
+spillage during vessel motion, which degrade HPGe gamma spectrometry
+measurement quality.
+We developed a solidification procedure based on low-methoxyl (LM) pectin
+and controlled Ca$^{2+}$ supplementation, which converts seawater into a
+mechanically stable, leak-resistant gel through egg-box cross-linking.
+Under the optimised condition (1.4~g LM-pectin per 28.26~g seawater,
+300~rpm, 120~min), the gel fills a cylindrical HPGe counting geometry
+(diameter 60~mm, fill height 10~mm) reproducibly.
+Paired recovery rates, calculated from measurements before and after
+solidification of Korea Institute of Nuclear Safety (KINS)
+proficiency-test samples, were
+99.9~$\pm$~5.6\% for $^{137}$Cs ($n=5$),
+88.8~$\pm$~12.6\% for $^{134}$Cs ($n=4$),
+93.7~$\pm$~5.6\% for $^{241}$Am ($n=5$),
+and 94.8~$\pm$~2.7\% for $^{60}$Co ($n=3$)
+across a gamma-energy span of 59.5--1173.2~keV.
+Sixteen of 17 paired measurements remained within 80--120\% recovery;
+the exception was one $^{134}$Cs result (71.0\%).
+The procedure uses food-grade reagents only, requires no pre-evaporation
+or specialised equipment, and completes gelation within two hours,
+making it a practical candidate for further validation in shipboard
+environmental radioactivity surveys.
+\end{abstract}
+
+\begin{keyword}
+Marine radioactivity monitoring \sep
+Sample solidification \sep
+Low-methoxyl pectin \sep
+Egg-box gelation \sep
+HPGe gamma spectrometry \sep
+Field-deployable measurement
+\end{keyword}
+
+\end{frontmatter}
+\linenumbers
+
+%% ══════════════════════════════════════════════════════════
+\section{Introduction}
+%% ══════════════════════════════════════════════════════════
+
+The Fukushima Daiichi nuclear accident in 2011 released substantial quantities
+of radionuclides into the Pacific Ocean, demonstrating that rapid, on-site
+seawater radioactivity measurement is not merely a routine task but a genuine
+operational necessity~\cite{Buesseler2012, Lu2021}.
+In the years since, the need to characterise marine radioactivity at sea---
+rather than after samples reach a shore laboratory---has grown considerably,
+driven by post-accident environmental surveillance programmes,
+naval radiological protection, and international monitoring obligations
+under IAEA frameworks~\cite{IAEA2005, Abbasi2021, Uddin2020}.
+Long-term environmental radionuclide datasets also show the value of
+measurement workflows that can be deployed consistently across monitoring
+locations and conditions~\cite{Bae2025}.
+High-purity germanium (HPGe) gamma spectrometry is the technique of choice
+for simultaneous identification and quantification of multiple gamma-emitting
+radionuclides in seawater without chemical separation, owing to its energy
+resolution and broad nuclide coverage~\cite{Jerome2014, Debertin1988}.
+
+The conventional approach aboard research or naval vessels is to collect
+seawater into a cylindrical counting container and place the container
+directly on the HPGe detector for measurement.
+This works well in a shore laboratory, where the detector and sample remain
+still.
+At sea, however, persistent vessel motion causes the liquid surface to oscillate,
+continuously changing the distance and solid angle between the sample and the
+detector crystal (Fig.~\ref{fig:concept})~\cite{Corbacho2022, Choi2024}.
+Even moderate swell introduces geometry-dependent efficiency errors of several
+percent~\cite{Barrera2017}, making quantitative measurement
+unreliable without lengthy post-measurement corrections that are impractical
+in an emergency response context.
+Beyond measurement accuracy, a liquid sample also poses a spillage risk:
+in a confined shipboard instrument room, any leak of seawater containing
+elevated radionuclide concentrations represents both a contamination hazard
+and an operational problem~\cite{Lu2021, Choi2023}.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.6\linewidth]{Fig1.png}
+  \caption{Schematic illustration of the sample solidification concept
+    for field-deployable radionuclide measurement.
+    (a) Conventional liquid seawater samples on mobile platforms
+    (e.g., vessels) suffer from geometric instability and leakage risk,
+    which compromise HPGe detector counting efficiency.
+    (b) Pectin--Ca$^{2+}$ gelation solidifies the sample via an
+    egg-box cross-linking mechanism
+    ($[\text{C}_6\text{H}_8\text{O}_6]_n + \text{Ca}^{2+}
+    \rightarrow (\text{Pectin--Ca--Pectin})_n$),
+    limiting geometric variation and leakage risk while retaining
+    radionuclides in the measurement sample.}
+  \label{fig:concept}
+\end{figure}
+
+The logical solution is to convert the liquid sample into a solid or
+gel-like form before measurement, so that the counting geometry is fixed
+regardless of vessel motion.
+Cement, epoxy resins~\cite{Costa2021}, and polymer
+hydrogels~\cite{Du2020} have each been considered as solidification matrices
+for radioactive materials; however, these methods share practical drawbacks
+that make them poorly suited to shipboard use---elevated processing temperatures,
+toxic or irritating reagents, curing times exceeding 24~h, or
+difficulties achieving a spatially uniform distribution of dissolved
+radionuclides~\cite{Rahman2007}.
+What is needed is a solidification agent that works at room temperature,
+uses safe reagents, and gels within a few hours.
+
+We identified low-methoxyl (LM) pectin as a candidate because seawater
+already contains Ca$^{2+}$, the principal cross-linking cation, and because
+the gelation condition can be standardised by a small, controlled addition
+of CaCl$_2\cdot$2H$_2$O.
+LM-pectin (degree of esterification $<$50\%) gels in the presence of
+divalent cations through the egg-box mechanism, in which Ca$^{2+}$ ions
+coordinate with carboxylate groups on adjacent pectin chains, forming a
+three-dimensional network:
+$[\text{C}_6\text{H}_8\text{O}_6]_n + \text{Ca}^{2+}
+\rightarrow (\text{Pectin--Ca--Pectin})_n$~\cite{Braccini2001, Grant1973}.
+Seawater naturally contains approximately 400~mg~L$^{-1}$ Ca$^{2+}$ and
+1300~mg~L$^{-1}$ Mg$^{2+}$~\cite{Millero2008}.
+In this study, supplemental CaCl$_2\cdot$2H$_2$O was added to reduce
+condition-to-condition variation and obtain a reproducible preparation
+protocol.
+LM-pectin is a food-grade polysaccharide widely used in the food
+industry~\cite{May1990}, non-toxic, and stable at room temperature,
+all properties that matter in a shipboard setting where chemical safety
+and simplicity are priorities.
+
+To our knowledge, LM-pectin--Ca$^{2+}$ gelation has not previously been
+applied to seawater sample preparation for HPGe gamma spectrometry.
+Open questions include how quantitatively the method preserves the activity
+of dissolved radionuclides ($^{137}$Cs, $^{134}$Cs, $^{241}$Am, $^{60}$Co)
+across the full energy range relevant to marine monitoring (59.5--1173.2~keV),
+and whether the gel matrix introduces energy-dependent self-absorption
+for low-energy emitters such as $^{241}$Am.
+This study addresses those questions by: (i)~optimising pectin concentration
+and gelation conditions for artificial seawater in a standard cylindrical
+HPGe counting geometry; (ii)~quantifying radionuclide recovery and
+measurement accuracy against Korea Institute of Nuclear Safety (KINS)
+certified proficiency-test reference standards; and (iii)~assessing
+analytical reproducibility across multiple sample preparations.
+The result is the first validated protocol for pectin-gel solidification
+of seawater samples intended for field HPGe gamma spectrometry.
+
+
+%% ══════════════════════════════════════════════════════════
+\section{Materials and Methods}
+%% ══════════════════════════════════════════════════════════
+
+\subsection{Reagents and Materials}
+
+LM-pectin powder (degree of esterification $<$50\%, food grade;
+105 RAPID SET, Korea) was used as received without further purification.
+Supplemental Ca$^{2+}$ was added as calcium chloride dihydrate
+(CaCl$_2\cdot$2H$_2$O, $\geq$99\%; DAEJUNG, Korea).
+The added amount (0.0323~g per 28.26~g sample) corresponds to
+approximately 312~mg~L$^{-1}$ supplemental Ca$^{2+}$.
+Artificial seawater was prepared in-house following ASTM D1141 at
+salinity 35~psu; its Ca$^{2+}$ concentration was approximately
+400~mg~L$^{-1}$, consistent with the reference composition of standard
+seawater~\cite{Millero2008}.
+Radionuclide reference solutions ($^{137}$Cs, $^{134}$Cs, $^{241}$Am,
+$^{60}$Co) were supplied by the Korea Institute of Nuclear Safety (KINS)
+through their proficiency testing programme.
+We used samples from three rounds (2019, 2022, 2024) spanning a 1.8-fold
+range in reference activity concentration (24.6--45.1~Bq~kg$^{-1}$).
+All KINS reference values are traceable to national measurement standards.
+Complete measured activity concentrations before and after solidification
+are reported in Table~\ref{tab:rawdata}.
+
+\begin{table}[htbp]
+\footnotesize
+\caption{Activity concentration data (Bq~kg$^{-1}$) transcribed from the
+  laboratory summary sheet before and after LM-pectin--Ca$^{2+}$
+  solidification.
+  $A_{\text{KINS}}$: KINS proficiency-test certified reference value.
+  $R$: paired recovery rate (Eq.~\ref{eq:recovery}).
+  $\Delta$: paired change after solidification (Eq.~\ref{eq:change}).
+  $B$: post-solidification bias relative to the KINS value
+  (Eq.~\ref{eq:bias}).
+  N/M: not measured.
+  The original spectroscopy exports should accompany the public data
+  package when available.}
+\label{tab:rawdata}
+\centering
+\begin{tabular}{llcccccc}
+\toprule
+Radionuclide & Sample &
+  $A_{\text{KINS}}$ & $A_{\text{before}}$ & $A_{\text{after}}$ &
+  $R$ (\%) & $\Delta$ (\%) & $B$ (\%) \\
+\midrule
+\multirow{5}{*}{$^{137}$Cs}
+  & S1 & 45.1 & 44.0  & 44.4  & 100.9 & $+$0.9 & $-$1.6 \\
+  & S2 & 45.1 & 47.0  & 43.4  &  92.3 & $-$7.7 & $-$3.8 \\
+  & S3 & 24.6 & 30.8  & 30.7  &  99.7 & $-$0.3 & $+$24.8 \\
+  & S4 & 24.6 & 28.3  & 30.6  & 108.1 & $+$8.1 & $+$24.4 \\
+  & S5 & 24.8 & 30.3  & 29.9  &  98.7 & $-$1.3 & $+$20.6 \\
+\midrule
+\multirow{5}{*}{$^{134}$Cs}
+  & S1 & 45.1 & 44.0  & 40.2  &  91.4 & $-$8.6 & $-$10.9 \\
+  & S2 & 45.1 & 47.0  & 47.3  & 100.6 & $+$0.6 & $+$4.9 \\
+  & S3 & 24.6 & 30.8  & 28.4  &  92.2 & $-$7.8 & $+$15.4 \\
+  & S4 & 24.6 & 28.3  & 20.1  &  71.0 & $-$29.0 & $-$18.3 \\
+  & S5 & 24.8 & ---   & ---   & N/M   & N/M & N/M \\
+\midrule
+\multirow{5}{*}{$^{241}$Am}
+  & S1 & 45.1 & 44.0  & 40.6  &  92.3 & $-$7.7 & $-$10.0 \\
+  & S2 & 45.1 & 47.0  & 45.8  &  97.4 & $-$2.6 & $+$1.6 \\
+  & S3 & 24.6 & 30.8  & 26.5  &  86.0 & $-$14.0 & $+$7.7 \\
+  & S4 & 24.6 & 28.3  & 26.1  &  92.2 & $-$7.8 & $+$6.1 \\
+  & S5 & 24.8 & 30.3  & 30.5  & 100.7 & $+$0.7 & $+$23.0 \\
+\midrule
+\multirow{5}{*}{$^{60}$Co}
+  & S1 & 45.1 & 44.0  & 40.5  &  92.0 & $-$8.0 & $-$10.2 \\
+  & S2 & 45.1 & 47.0  & 44.6  &  94.9 & $-$5.1 & $-$1.1 \\
+  & S3 & 24.6 & ---   & ---   & N/M   & N/M & N/M \\
+  & S4 & 24.6 & ---   & ---   & N/M   & N/M & N/M \\
+  & S5 & 24.8 & 30.3  & 29.5  &  97.4 & $-$2.6 & $+$19.0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Sample Preparation and Solidification Procedure}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\linewidth]{Fig2_revised.png}
+  \caption{Experimental procedure for LM-pectin--Ca$^{2+}$ sample solidification.
+    (a) Cylindrical polyethylene measurement container
+    (inner diameter 60~mm; fill height marker at 10~mm).
+    (b) Gravimetric addition of CaCl$_2\cdot$2H$_2$O
+    (0.0323~g; Sartorius analytical balance).
+    (c) Stirring hotplate conditions (room temperature, 300~rpm).
+    (d) Gradual addition of LM-pectin powder to the seawater sample.}
+  \label{fig:procedure}
+\end{figure}
+
+The procedure is shown in Fig.~\ref{fig:procedure}.
+We used a cylindrical polyethylene container (inner diameter 60~mm,
+height 40~mm) as the counting geometry, with the fill height fixed
+at 10~mm (28.26~g sample mass).
+The 28.26~g sample mass corresponds to a 10~mm fill height in the
+60~mm-diameter container and was selected as the fixed geometry used
+for the ISOCS efficiency calculation.
+
+For each sample: 28.26~g of KINS reference seawater was weighed into
+the container (Fig.~\ref{fig:procedure}a); 0.0323~g of
+CaCl$_2\cdot$2H$_2$O was weighed on a Sartorius balance
+(readability 0.0001~g; Fig.~\ref{fig:procedure}b) and dissolved by
+brief stirring; the container was placed on a digital stirring plate
+(MSH-30D; Daihan Scientific, Wonju, Korea) set to 300~rpm at room
+temperature (Fig.~\ref{fig:procedure}c); and LM-pectin powder was added
+gradually over 2--3~min under continuous stirring
+(Fig.~\ref{fig:procedure}d).
+
+We checked gelation status every 10~min by briefly inverting the
+container; gelation was considered complete when no flow was visible
+within 5~s of inversion.
+The gelled container was then placed directly on the HPGe detector
+for measurement without any additional processing.
+
+\subsection{Gelation Condition Optimisation}
+
+Five pectin loadings were tested per 28.26~g seawater:
+0.7, 1.4, 1.7, 2.8, and 3.5~g.
+For each loading we recorded the time to gel formation and assessed
+gel appearance by eye (transparency, surface smoothness, absence of
+granulation or air inclusions) and by the inversion test.
+We assigned each gel to one of five categories:
+no gel, insufficient, optimal, over-gelled, or excessive.
+
+\subsection{Gamma Spectrometry}
+
+All measurements---before and after solidification---were made with
+the same $p$-type coaxial HPGe detector (crystal diameter 70~mm,
+height 80~mm; relative efficiency 30\%; energy resolution 1.85~keV
+FWHM at 1332~keV; Canberra Industries, USA).
+The detector was connected to a digital multi-channel analyser running
+Genie-2000 spectroscopy software (Canberra).
+Counting efficiency for the cylindrical container geometry was
+calibrated using the ISOCS computational tool (Canberra).
+Each measurement ran for 30000~s live time.
+
+Four radionuclides were quantified by their principal gamma peaks:
+$^{137}$Cs at 661.7~keV, $^{134}$Cs at 604.7~keV,
+$^{241}$Am at 59.5~keV, and $^{60}$Co at 1173.2~keV.
+
+\subsection{Recovery Rate Calculation}
+
+Recovery $R$ was defined as:
+\begin{equation}
+  R\,(\%) = \frac{A_{\text{after}}}{A_{\text{before}}} \times 100
+  \label{eq:recovery}
+\end{equation}
+where $A_{\text{before}}$ and $A_{\text{after}}$ (Bq~kg$^{-1}$) are
+the activity concentrations measured before and after solidification.
+The paired change after solidification was calculated as:
+\begin{equation}
+  \Delta\,(\%) = R - 100
+  \label{eq:change}
+\end{equation}
+Agreement with the KINS certified reference value was reported separately
+as the post-solidification bias:
+\begin{equation}
+  B\,(\%) = \frac{A_{\text{after}} - A_{\text{KINS}}}{A_{\text{KINS}}} \times 100
+  \label{eq:bias}
+\end{equation}
+The separation of $\Delta$ and $B$ is important: $\Delta$ evaluates the
+effect of the solidification step, whereas $B$ includes pre-existing
+calibration and sample-specific differences relative to the certified value.
+
+
+%% ══════════════════════════════════════════════════════════
+\section{Results and Discussion}
+%% ══════════════════════════════════════════════════════════
+
+\subsection{Gelation Optimisation}
+
+The gelation behaviour of LM-pectin in seawater varied systematically with
+pectin amount (Fig.~\ref{fig:gelation}).
+At 0.7~g per 28.26~g seawater, no gel formed within 180~min,
+indicating insufficient cross-linking density at this pectin concentration.
+At 1.4~g, a transparent, mechanically stable gel formed in 120~min,
+exhibiting smooth surface topology and no phase separation;
+this condition was designated as optimal.
+Increasing the amount to 1.7~g reduced gelation time to 90~min
+but produced a slightly opaque, firmer gel.
+At 2.8~g and 3.5~g, gelation was effectively instantaneous ($<$5~min),
+resulting in heterogeneous, granular gel structures with visible
+air inclusions that would compromise the homogeneity required
+for accurate gamma spectrometry.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\linewidth]{Fig3.png}
+  \caption{Gelation behaviour of LM-pectin in artificial seawater as a function
+    of pectin amount (g per 28.26~g seawater).
+    The bar chart shows gelation time (min) for each pectin loading;
+    0.7~g produced no gel within 180~min, 1.4~g (optimal condition, green)
+    formed a transparent, mechanically stable gel in 120~min,
+    1.7~g gelled in 90~min with slightly reduced homogeneity,
+    and 2.8~g and 3.5~g produced instantaneous, heterogeneous gel structures.
+    Photographs below show the representative gel appearance for each condition
+    (top view after inversion test).}
+  \label{fig:gelation}
+\end{figure}
+
+\sloppy
+The concentration dependence makes sense in terms of the egg-box
+cross-linking mechanism~\cite{Braccini2001}.
+Seawater Ca$^{2+}$ at $\sim$400~mg~L$^{-1}$ ($\sim$10~mmol~L$^{-1}$)
+is enough to initiate junction-zone formation in LM-pectin, but only
+above a threshold pectin concentration at which the chain density
+is sufficient for a connected network to form.
+At 1.4~g per 28.26~g ($\approx$4.7~wt\%), we appear to be just above
+that threshold.
+At 0.7~g ($\approx$2.5~wt\%), we are below it---the Ca$^{2+}$ is
+present but the pectin chains are too dilute to form a percolating
+network within 180~min.
+At 2.8~g and above, the opposite problem occurs: pectin chains are
+dense enough to saturate available Ca$^{2+}$ binding sites almost
+instantaneously, trapping the polymer in a heterogeneous state before
+the chains can arrange themselves into a uniform gel.
+The 1.4~g condition avoids both problems and was selected for all
+subsequent experiments.
+
+\subsection{Cs-137 Recovery: Individual Sample Analysis}
+
+Fig.~\ref{fig:recovery}a shows $^{137}$Cs concentrations measured before
+and after solidification for all five samples (three KINS rounds:
+2019, 2022, 2024).
+In every case, the after-solidification value stayed within a few
+percent of the before-solidification value across reference
+concentrations from 24.6 to 45.1~Bq~kg$^{-1}$.
+Mean paired recovery was 99.9~$\pm$~5.6\%; the largest absolute paired
+change was 8.1\% (S4).
+
+The near-complete recovery of $^{137}$Cs is not surprising.
+Cs$^+$ is a monovalent cation that stays dissolved in the gel pore
+water; it has no affinity for the carboxylate groups on the pectin
+backbone, which selectively bind divalent cations like Ca$^{2+}$
+and Sr$^{2+}$~\cite{Braccini2001}.
+The seawater Ca$^{2+}$ at $\sim$400~mg~L$^{-1}$ already saturates most
+available binding sites, so trace-level $^{137}$Cs$^+$ is effectively
+excluded from the cross-link structure and remains evenly distributed
+in the water phase of the gel.
+
+\subsection{Multi-Radionuclide Recovery}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\linewidth]{Fig4_revised.png}
+  \caption{$^{137}$Cs recovery performance and multi-radionuclide recovery
+    summary.
+    (a) $^{137}$Cs activity concentrations before (open circles) and after
+    (filled circles) LM-pectin--Ca$^{2+}$ solidification for five samples
+    (S1--S5) spanning three KINS proficiency-test rounds.
+    (b) Mean recovery rates ($\pm$1~SD) for $^{137}$Cs ($n=5$),
+    $^{134}$Cs ($n=4$), $^{241}$Am ($n=5$), and $^{60}$Co ($n=3$)
+    after LM-pectin--Ca$^{2+}$ solidification.
+    The dashed line indicates 100\% recovery and dotted lines mark the
+    80--120\% paired-recovery screening range.}
+  \label{fig:recovery}
+\end{figure}
+
+\begin{table}[htbp]
+\caption{Paired recovery rates of four radionuclides
+measured after LM-pectin--Ca$^{2+}$ solidification.
+Individual sample-level data are provided in Table~\ref{tab:rawdata}.}
+\label{tab:recovery}
+\centering
+\begin{tabular}{lccccc}
+\toprule
+Radionuclide & $E_\gamma$ (keV) & $n$ &
+  Mean recovery (\%) & Minimum (\%) & Maximum (\%) \\
+\midrule
+$^{137}$Cs & 661.7   & 5 & $99.9 \pm 5.6$  & 92.3 & 108.1 \\
+$^{134}$Cs & 604.7   & 4 & $88.8 \pm 12.6$ & 71.0 & 100.6 \\
+$^{241}$Am & 59.5    & 5 & $93.7 \pm 5.6$  & 86.0 & 100.7 \\
+$^{60}$Co  & 1173.2  & 3 & $94.8 \pm 2.7$  & 92.0 & 97.4 \\
+\bottomrule
+\multicolumn{6}{l}{\footnotesize Values are mean $\pm$ 1 standard deviation
+  (sample SD, $ddof=1$).}
+\end{tabular}
+\end{table}
+
+Fig.~\ref{fig:recovery}b and Table~\ref{tab:recovery} summarise
+mean recovery for all four nuclides.
+Sixteen of the 17 paired values were within the 80--120\% screening
+range. Sample-level data are in Table~\ref{tab:rawdata}.
+
+$^{134}$Cs recovered at 88.8~$\pm$~12.6\%, with one low paired result
+(S4, 71.0\%). The current dataset does not establish the cause of this
+deviation. The result is retained in the analysis and treated as a
+limitation rather than excluded as an outlier.
+
+$^{60}$Co recovered at 94.8~$\pm$~2.7\%, with the narrowest
+range of the four nuclides ($n=3$).
+Only three of the five KINS rounds included $^{60}$Co at detectable
+concentrations, so $n=3$ here.
+All three paired values were within 92.0--97.4\%, supporting further
+evaluation of the gel protocol at high energies.
+
+The 93.7\% recovery for $^{241}$Am at 59.5~keV is worth a closer look.
+At this energy, photons are partially absorbed by the sample before
+reaching the detector.
+Water (and the gel, which is $>$95\% water by mass) has a mass
+attenuation coefficient of roughly 0.20~cm$^2$~g$^{-1}$ at
+59.5~keV~\cite{Hubbell2004}, which translates to a 2--5\%
+self-absorption correction for a 10~mm fill height.
+The observed 93.7\% recovery is compatible with a modest low-energy
+attenuation effect, although the present dataset cannot separate
+self-absorption from other sample-preparation effects.
+Users measuring $^{241}$Am should validate an energy-dependent efficiency
+correction for the selected fill height.
+
+\subsection{Paired Variation Across the Energy Range}
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\linewidth]{Fig5_revised.png}
+  \caption{(a) Heatmap of individual paired changes $\Delta$ (\%)
+    for each radionuclide--sample combination
+    (Eq.~\ref{eq:change}).
+    N/M: not measured for that sample--nuclide pair.
+    (b) Mean $^{60}$Co paired recovery with 95\% confidence interval
+    ($n=3$, $ddof=1$). The shaded area indicates the 80--120\%
+    paired-recovery screening range.}
+  \label{fig:heatmap}
+\end{figure}
+
+Fig.~\ref{fig:heatmap}a maps the paired change caused by the
+solidification step. The low-energy $^{241}$Am measurements remained
+within $-14.0$ to $+0.7$\%, whereas the most pronounced deviation was
+the $^{134}$Cs S4 result ($-29.0$\%). With the present sample size,
+the dataset is not sufficient for a formal energy-dependence claim.
+
+For $^{60}$Co, the mean paired recovery was 94.8\% and the 95\%
+confidence interval was 88.2--101.4\% (Fig.~\ref{fig:heatmap}b).
+A descriptive sensitivity analysis based on the observed SD indicates
+that the $n=3$ dataset had 80\% power to detect an absolute shift of
+approximately 8.7 percentage points in a two-sided one-sample
+$t$-test ($\alpha=0.05$). The analysis is provided in the Supplementary
+Information with the raw values and code. It does not replace future
+prospective replication.
+
+\subsection{Field Applicability}
+
+The central problem this method addresses is straightforward: liquid
+seawater in a counting container sloshes with every roll and pitch of
+the vessel, so the distance from the sample surface to the HPGe detector
+crystal changes continuously during measurement.
+Because HPGe counting efficiency falls off with source-to-detector
+distance, even moderate swell introduces counting efficiency errors
+that are difficult to correct retrospectively without knowing the exact
+geometry at every moment of the measurement.
+Once the seawater is converted to a gel, the sample surface is fixed and
+the geometry is defined. This should reduce sensitivity to vessel motion,
+although direct testing aboard a vessel or on a motion platform remains
+necessary.
+
+A secondary advantage is operational safety and handling convenience.
+A gel is less likely to spill than a liquid sample.
+In a confined shipboard instrument room, a spilled liquid sample
+containing elevated $^{137}$Cs or other radionuclides would require
+immediate decontamination and could damage the HPGe detector; a gel
+remains in the container even if the container tips.
+The prepared gels showed no visible syneresis during the measurement
+window. Longer stability tests remain necessary for workflows that
+require storage or transport.
+
+From a logistics perspective, the reagents needed are minimal.
+LM-pectin is a food-grade powder, and both reagents can be stored at
+room temperature.
+The procedure needs only a stirring hotplate and an analytical balance;
+no fume hood, no pre-evaporation step, and no specialised chemistry skills
+are required.
+Gelation is complete within 2~h under the selected condition.
+
+In comparison with other solidification approaches, LM-pectin offers
+some additional practical points.
+Cement-based matrices are designed for durable immobilisation and are
+irreversible once set~\cite{Rahman2007}.
+Epoxy fixation is also a durable approach rather than a reversible
+sample-preparation workflow~\cite{Costa2021}.
+Some synthetic hydrogel routes require reagents and preparation steps
+that are less convenient for simple field handling~\cite{Du2020}.
+The LM-pectin--Ca$^{2+}$ gel, by contrast, uses a food-grade polymer
+and a simple aqueous preparation protocol~\cite{May1990}.
+
+\subsection{Comparison with Alginate-Based Gelation}
+
+Sodium alginate gels in seawater by the same egg-box mechanism as
+LM-pectin~\cite{Grant1973, Makarova2023}, so it is worth asking
+whether alginate would work equally well as a solidification matrix.
+
+The literature on alginate in radioactivity research points in a
+different direction: alginate has been studied mainly as a material
+for \emph{removing} radionuclides from water, not for preserving
+their concentration.
+Prussian blue--alginate aerogels, for example, remove $\sim$20~mg~g$^{-1}$
+of Cs$^+$ and Sr$^{2+}$ from seawater~\cite{Eun2021} by exploiting
+strong cation binding to the polymer backbone.
+Pectin-based sorbents have been explored for the same purpose~\cite{BokBadura2020}.
+Strong cation affinity is useful for decontamination materials but may
+redistribute radionuclides within a measurement matrix. The 99.9\%
+mean paired recovery for $^{137}$Cs indicates that substantial net loss
+did not occur under the LM-pectin preparation conditions used here.
+Spatial distribution within the gel was not measured directly.
+
+Whether alginate under the same conditions (seawater Ca$^{2+}$ as the
+cross-linker) would show similarly low Cs binding has not been tested
+directly.
+Direct comparison with alginate was outside the scope of the present
+study and would be useful in future protocol-development work.
+More broadly, radionuclide coordination is ligand- and ion-dependent,
+as shown in computational chelator-selection studies~\cite{Kim2026}.
+
+\subsection{Limitations and Future Directions}
+
+Four limitations of this study are worth stating clearly.
+
+First, all experiments used ASTM D1141 artificial seawater, not
+real coastal or open-ocean seawater.
+Real seawater carries dissolved organic matter, particulates,
+and microbial material that are absent from the artificial standard.
+Whether these components affect gelation kinetics or cause
+radionuclide redistribution within the gel matrix is not known.
+The pH of real seawater (7.8--8.3) is slightly different from
+that of the artificial standard too, and pH affects the degree of
+pectin deprotonation and therefore the rate of Ca$^{2+}$ binding.
+Validation with real contaminated samples from active coastal monitoring
+stations is the most important next step~\cite{Choi2023}.
+
+Second, motion tolerance was not tested aboard a vessel or with a
+laboratory motion simulator. The field benefit is therefore a practical
+hypothesis supported by the fixed gel geometry, not a completed
+shipboard validation.
+
+Third, the reference-bias analysis identified four post-solidification
+measurements outside $\pm20$\% of the KINS certified value
+(Table~\ref{tab:rawdata}). Because discrepancies were also present
+before solidification, paired recovery is the primary endpoint for this
+protocol study. Absolute calibration performance should be re-evaluated
+from the original spectroscopy exports before operational deployment.
+
+Fourth, the replicate count for $^{60}$Co was only $n=3$, because
+only three of the five KINS reference rounds included this nuclide
+at detectable concentrations.
+The confidence interval and descriptive sensitivity analysis are reported
+to make this limitation explicit.
+
+Looking ahead, we see three useful extensions of this work:
+extending the nuclide panel to naturally occurring $^{40}$K and
+$^{7}$Be, which are of independent interest for marine atmospheric
+deposition studies~\cite{Bae2025}; developing Monte Carlo
+(MCNP/GEANT4) efficiency correction models specific to the gel
+geometry and water-equivalent matrix to tighten accuracy at low
+gamma energies~\cite{Corbacho2022}; and testing the method
+aboard an actual vessel during a monitoring mission to confirm
+that the geometry stability benefit translates to real measurement
+conditions.
+
+
+%% ══════════════════════════════════════════════════════════
+\section{Conclusions}
+%% ══════════════════════════════════════════════════════════
+
+Solidifying seawater samples with LM-pectin and controlled Ca$^{2+}$
+supplementation addresses a practical sample-handling problem:
+liquid samples can change geometry and spill during mobile-platform
+measurement. The gel fixes the sample shape and provides a basis for
+future shipboard validation.
+
+At the optimised condition---1.4~g LM-pectin per 28.26~g seawater,
+stirred at 300~rpm for 120~min at room temperature---radionuclide
+mean paired recovery was
+99.9\%, 88.8\%, 93.7\%, and 94.8\% for $^{137}$Cs, $^{134}$Cs,
+$^{241}$Am, and $^{60}$Co, respectively, across 59.5--1173.2~keV.
+Sixteen of 17 paired values remained within 80--120\% recovery.
+The $^{134}$Cs S4 result (71.0\%) and reference-bias discrepancies are
+reported transparently as limitations (Table~\ref{tab:rawdata};
+Figs.~\ref{fig:gelation}--\ref{fig:heatmap}).
+No pre-evaporation or specialised reagent is needed.
+
+The present experiments used ASTM artificial seawater and did not
+include a vessel-motion test. Confirming performance with real seawater,
+evaluating motion tolerance, extending the nuclide panel to $^{40}$K
+and $^{7}$Be~\cite{Bae2025}, and developing Monte Carlo efficiency
+corrections are the practical next steps toward deployment.
+
+
+\nolinenumbers
+%% ══════════════════════════════════════════════════════════
+\section*{CRediT Author Contribution Statement}
+%% ══════════════════════════════════════════════════════════
+\textbf{Yejin Lee:} Conceptualisation, Methodology, Investigation,
+Formal Analysis, Writing -- Original Draft.
+\textbf{Hyunsung Kim:} Methodology, Formal Analysis, Validation,
+Writing -- Review \& Editing.
+\textbf{Myeongsik Shin:} Investigation, Resources, Writing -- Review \& Editing.
+\textbf{Gyoung Jun Choi:} Investigation, Resources.
+\textbf{Jun Yoo:} Investigation, Data Curation.
+\textbf{Ku Kang:} Conceptualisation, Supervision, Funding Acquisition,
+Writing -- Review \& Editing.
+
+\section*{Declaration of Competing Interest}
+The authors declare that they have no known competing financial
+interests or personal relationships that could have appeared to
+influence the work reported in this paper.
+
+\section*{Data Availability Statement}
+The data table, derived metrics, figure-reproduction code, and
+$^{60}$Co sensitivity analysis are available at:
+\url{[DATA_REPOSITORY_URL_TO_BE_ADDED_BEFORE_SUBMISSION]}.
+The spectroscopy export files should be deposited in the same repository
+before submission.
+
+\section*{Supplementary Information}
+Supplementary Information includes the calculation definitions,
+the $^{60}$Co sensitivity analysis, and a data-file inventory.
+
+\section*{Acknowledgements}
+The KINS proficiency test reference standards (2019, 2022, 2024 rounds)
+are gratefully acknowledged.
+
+
+
+%% ══════════════════════════════════════════════════════════
+%% REFERENCES
+%% ══════════════════════════════════════════════════════════
+\begin{thebibliography}{10}
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{\texttt{#1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+\expandafter\ifx\csname href\endcsname\relax
+  \def\href#1#2{#2} \def\path#1{#1}\fi
+
+\bibitem{Buesseler2012}
+K.~O. Buesseler, S.~R. Jayne, N.~S. Fisher, I.~I. Rypina, H.~Baumann, Z.~Baumann, C.~F. Breier, E.~M. Douglass, J.~George, A.~M. Macdonald, H.~Miyamoto, J.~Nishikawa, S.~M. Pike, S.~Yoshida, Fukushima-derived radionuclides in the ocean and biota off {Japan}, Proceedings of the National Academy of Sciences 109~(16) (2012) 5984--5988.
+\newblock \href {https://doi.org/10.1073/pnas.1120794109} {\path{doi:10.1073/pnas.1120794109}}.
+
+\bibitem{Lu2021}
+Y.~Lu, J.~Yuan, D.~Du, B.~Sun, X.~Yi, Monitoring long-term ecological impacts from release of fukushima radiation water into ocean, Geography and Sustainability 2~(2) (2021) 95--98.
+
+\bibitem{IAEA2005}
+{IAEA}, Worldwide Marine Radioactivity Studies ({WOMARS}): Radionuclide Levels in Oceans and Seas, International Atomic Energy Agency, Vienna, Austria, 2005, iAEA-TECDOC-1429.
+
+\bibitem{Abbasi2021}
+A.~Abbasi, H.~M.~H. Zakaly, A.~Badawi, The anthropogenic radiotoxic element of $^{137}${Cs} accumulate to biota in the {Mediterranean Sea}, Marine Pollution Bulletin 164 (2021) 112043.
+\newblock \href {https://doi.org/10.1016/j.marpolbul.2021.112043} {\path{doi:10.1016/j.marpolbul.2021.112043}}.
+
+\bibitem{Uddin2020}
+S.~Uddin, S.~W. Fowler, M.~Behbehani, A.~N. Al-Ghadban, P.~W. Swarzenski, N.~Al-Awadhi, A review of radioactivity in the {Gulf} region, Marine Pollution Bulletin 159 (2020) 111481.
+\newblock \href {https://doi.org/10.1016/j.marpolbul.2020.111481} {\path{doi:10.1016/j.marpolbul.2020.111481}}.
+
+\bibitem{Jerome2014}
+S.~M. Jerome, M.~J. Woods, S.~E.~M. Lucas, L.~Johansson, J.~F. Gravel, The role of naturally occurring radionuclides in the standardisation of low level radioactivity measurement, Applied Radiation and Isotopes 87 (2014) 302--308.
+\newblock \href {https://doi.org/10.1016/j.apradiso.2013.11.079} {\path{doi:10.1016/j.apradiso.2013.11.079}}.
+
+\bibitem{Debertin1988}
+K.~Debertin, R.~G. Helmer, Gamma- and {X}-ray Spectrometry with Semiconductor Detectors, North-Holland, Amsterdam, 1988.
+
+
+\bibitem{Corbacho2022}
+J.~A. Corbacho, A.~Baeza, In situ gamma spectrometry using a portable {HPGe} detector: radiological characterisation and environmental surveillance around an operating nuclear power plant, Journal of Radiological Protection 42~(1) (2022) 011501.
+\newblock \href {https://doi.org/10.1088/1361-6498/ac4116} {\path{doi:10.1088/1361-6498/ac4116}}.
+
+\bibitem{Choi2024}
+Y.~Choi, Y.-Y. Ji, S.~Joung, B.-I. Min, Development of a portable underwater in-situ radiation detector ({MARK-U4}) for marine radioactivity monitoring, Journal of Coastal Research 116 (2024) 176--180.
+\newblock \href {https://doi.org/10.2112/JCR-SI116-036.1} {\path{doi:10.2112/JCR-SI116-036.1}}.
+
+
+\bibitem{Barrera2017}
+M.~Barrera, M.~Casas-Ruiz, J.~J. Alonso, J.~Vidal, Precise determination of hpge detector efficiency for gamma spectrometry measurements of environmental samples with variable geometry and density, Nukleonika 62~(1) (2017) 47--59.
+
+\bibitem{Choi2023}
+Y.~Choi, Y.-Y. Ji, S.~Joung, Experimental counting efficiency calibration of in situ marine radioactivity monitoring systems in {Busan} ({Korea}) based on seawater salinity, Journal of Coastal Research 39 (2023) 377--383.
+\newblock \href {https://doi.org/10.2112/JCOASTRES-D-22TM-00013.1} {\path{doi:10.2112/JCOASTRES-D-22TM-00013.1}}.
+
+
+\bibitem{Rahman2007}
+R.~A. Rahman, A.~Zaki, A.~El-Kamash, Modeling the long-term leaching behavior of 137cs, 60co, and 152,154 eu radionuclides from cement--clay matrices, Journal of Hazardous Materials 145~(3) (2007) 372--380.
+
+
+\bibitem{Du2020}
+H.~Du, S.~Shi, W.~Liu, H.~Teng, M.~Piao, Processing and modification of hydrogel and its application in emerging contaminant adsorption and in catalyst immobilization: a review, Environmental Science and Pollution Research 27~(12) (2020) 12967--12994.
+
+\bibitem{Braccini2001}
+I.~Braccini, S.~Perez, Molecular basis of {Ca}$^{2+}$-induced gelation in alginates and pectins: the egg-box model revisited, Biomacromolecules 2~(4) (2001) 1089--1096.
+\newblock \href {https://doi.org/10.1021/bm010008g} {\path{doi:10.1021/bm010008g}}.
+
+\bibitem{Grant1973}
+G.~T. Grant, E.~R. Morris, D.~A. Rees, P.~J.~C. Smith, D.~Thom, Biological interactions between polysaccharides and divalent cations: the egg-box model, FEBS Letters 32~(1) (1973) 195--198.
+\newblock \href {https://doi.org/10.1016/0014-5793(73)80770-7} {\path{doi:10.1016/0014-5793(73)80770-7}}.
+
+\bibitem{Millero2008}
+F.~J. Millero, R.~Feistel, D.~G. Wright, T.~J. McDougall, The composition of {Standard Seawater} and the definition of the {Reference-Composition Salinity Scale}, Deep-Sea Research Part I 55~(1) (2008) 50--72.
+\newblock \href {https://doi.org/10.1016/j.dsr.2007.10.001} {\path{doi:10.1016/j.dsr.2007.10.001}}.
+
+\bibitem{May1990}
+C.~D. May, Industrial pectins: Sources, production and applications, Carbohydrate Polymers 12 (1990) 79--99.
+\newblock \href {https://doi.org/10.1016/0144-8617(90)90105-2} {\path{doi:10.1016/0144-8617(90)90105-2}}.
+
+\bibitem{Hubbell2004}
+J.~H. Hubbell, S.~M. Seltzer, Tables of {X}-Ray Mass Attenuation Coefficients and Mass Energy-Absorption Coefficients (version 1.4), National Institute of Standards and Technology, Gaithersburg, MD, 2004, available at: \url{https://physics.nist.gov/xaamdi}.
+
+\bibitem{Makarova2023}
+A.~O. Makarova, S.~R. Derkach, T.~Khair, M.~A. Kazantseva, Y.~F. Zuev, O.~S. Zueva, Ion-induced polysaccharide gelation: Peculiarities of alginate egg-box association with different divalent cations, Polymers 15~(5) (2023) 1243.
+\newblock \href {https://doi.org/10.3390/polym15051243} {\path{doi:10.3390/polym15051243}}.
+
+\bibitem{Eun2021}
+S.~Eun, J.~Ryu, H.~Kim, H.-J. Hong, S.~Kim, Simultaneous removal of radioactive cesium and strontium from seawater using a highly efficient {Prussian blue}-embedded alginate aerogel, Journal of Environmental Management 297 (2021) 113389.
+\newblock \href {https://doi.org/10.1016/j.jenvman.2021.113389} {\path{doi:10.1016/j.jenvman.2021.113389}}.
+
+\bibitem{BokBadura2020}
+J.~Bok-Badura, A.~Jak\'{o}bik-Kolon, A.~Kazek-K\k{e}sik, K.~Karo\'{n}, Hybrid pectin-based sorbents for cesium ion removal, Materials 13~(9) (2020) 2160.
+\newblock \href {https://doi.org/10.3390/ma13092160} {\path{doi:10.3390/ma13092160}}.
+
+\bibitem{Bae2025}
+S.~Bae, Y.~Lee, S.~Lee, K.-D. Byun, K.~Kang, Environmental drivers of be-7 and k-40 deposition in south korea: A regional analysis of meteorological and geological influences, J. Environ. Radioact. 288 (2025) 107725.
+\newblock \href {https://doi.org/10.1016/j.jenvrad.2025.107725} {\path{doi:10.1016/j.jenvrad.2025.107725}}.
+
+\bibitem{Kim2026}
+J.~Kim, K.~Kang, K.~Shin, M.~K. Schultz, W.~B. Lee, D.~Lee,
+Rational selection of chelators for theranostic radionuclides:
+Insights from ab initio computational modeling,
+Molecular Pharmaceutics 23 (2026) 2779--2792.
+\newblock \href {https://doi.org/10.1021/acs.molpharmaceut.5c01955}
+{\path{doi:10.1021/acs.molpharmaceut.5c01955}}.
+
+\bibitem{Costa2021}
+O.~L. da~Costa, I.~S.~M. Freitas, F.~A. Genezini, D.~S. Moreira, G.~S. Zahn,
+Gamma spectrometry of iodine-125 produced in {IEA-R1} nuclear reactor,
+using {HPGe} detector and fixation into epoxy matrix disc,
+Applied Radiation and Isotopes 169 (2021) 109568.
+\newblock \href {https://doi.org/10.1016/j.apradiso.2020.109568} {\path{doi:10.1016/j.apradiso.2020.109568}}.
+
+\end{thebibliography}
+
+
+\end{document}

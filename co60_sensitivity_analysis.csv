@@ -1,0 +1,2 @@
+nuclide,n,mean_recovery_percent,sample_sd_percent,ci95_lower_percent,ci95_upper_percent,two_sided_alpha,target_power,minimum_detectable_absolute_shift_percentage_points,method,interpretation
+60Co,3,94.766,2.66,88.158,101.374,0.05,0.8,8.675,Monte Carlo one-sample two-sided t-test; 500000 draws; seed 20260531,Descriptive sensitivity analysis based on observed SD; not a substitute for prospective replication

@@ -1,0 +1,70 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{url}
+
+\begin{document}
+
+\section*{Supplementary Information}
+
+\textbf{Low-Methoxyl Pectin--Ca$^{2+}$ Gelation as a Sample
+Solidification Protocol for Marine Radioactivity Monitoring
+by HPGe Gamma Spectrometry}
+
+\section*{S1. Calculation definitions}
+
+Paired recovery evaluates the effect of the solidification step:
+\begin{equation}
+R\,(\%) = \frac{A_{\mathrm{after}}}{A_{\mathrm{before}}} \times 100.
+\end{equation}
+
+Paired change is:
+\begin{equation}
+\Delta\,(\%) = R - 100.
+\end{equation}
+
+Bias relative to the KINS certified value is reported separately:
+\begin{equation}
+B\,(\%) =
+\frac{A_{\mathrm{after}} - A_{\mathrm{KINS}}}{A_{\mathrm{KINS}}}
+\times 100.
+\end{equation}
+
+The separation is necessary because paired recovery evaluates retention
+during solidification, whereas KINS-reference bias also includes
+pre-existing calibration and sample-specific differences.
+
+\section*{S2. $^{60}$Co sensitivity analysis}
+
+The three paired $^{60}$Co recovery values were 92.0\%, 94.9\%, and
+97.4\%. The mean was 94.8\% with a sample standard deviation of 2.7
+percentage points. Using Student's $t$ interval with two degrees of
+freedom, the 95\% confidence interval was 88.2--101.4\%.
+
+A descriptive Monte Carlo sensitivity analysis was performed using a
+two-sided one-sample $t$-test, $\alpha=0.05$, 500000 simulations, and
+random seed 20260531. Based on the observed standard deviation, the
+minimum absolute shift detected with 80\% power was approximately
+8.7 percentage points.
+
+This sensitivity analysis documents the information content of the
+available $n=3$ dataset. It is not a substitute for prospective
+replication.
+
+\section*{S3. Reproducibility package}
+
+The repository package contains:
+\begin{itemize}
+  \item \texttt{raw\_data/manuscript\_measurements.csv}
+  \item \texttt{raw\_data/processed\_metrics.csv}
+  \item \texttt{raw\_data/recovery\_summary.csv}
+  \item \texttt{raw\_data/co60\_sensitivity\_analysis.csv}
+  \item \texttt{scripts/rebuild\_analysis.py}
+  \item \texttt{validation/calculation\_audit.md}
+\end{itemize}
+
+The original spectroscopy export files should be deposited alongside
+these files before submission.
+
+\end{document}
