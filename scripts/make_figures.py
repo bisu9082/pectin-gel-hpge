@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Fig4/Fig5 v2 — journal-grade redesign.
+"""Figures 4 and 5 of the manuscript.
 Fig4 (a) paired dumbbell with KINS-round grouping; (b) individual retentions
 + mean±SD overlay. Fig5 heatmap with Δ±u per cell, significance outlines,
 original/replicate divider. Style: Ku journal rules (figsize 20x10, dpi200,
@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import LinearSegmentedColormap
 from matplotlib.lines import Line2D
 import csv
+from _paths import RAW, FIG
 
 LABEL, AXIS, TICK = 28, 16, 15
 COL = {'Cs-137': '#C94F4A', 'Cs-134': '#E8943A', 'Am-241': '#4AACB0', 'Co-60': '#5B8DB8'}
@@ -22,12 +23,13 @@ plt.rcParams.update({'font.size': TICK, 'axes.labelsize': AXIS,
                      'xtick.color': INK2, 'ytick.color': INK2,
                      'axes.labelcolor': INK, 'text.color': INK})
 
-rows = list(csv.DictReader(open('/home/claude/pectin_rev/out/dataset_retention.csv')))
+FIG.mkdir(exist_ok=True)
+rows = list(csv.DictReader(open(RAW/'dataset_retention.csv')))
 for r in rows:
-    for k in ('A_before','u_b','A_after','u_a','R_ret','uR','Delta'):
+    for k in ('A_before','u_before','A_after','u_after','R_percent','u_R','Delta_percent'):
         r[k] = float(r[k])
-    r['sample'] = int(r['sample'])
-def key(r): return r['sample'] if r['set']=='orig' else 5 + r['sample']
+    r['sample'] = int(r['sample'].lstrip('S'))
+def key(r): return r['sample']
 
 # ══════════════ Fig 4 ══════════════
 fig, axes = plt.subplots(1, 2, figsize=(20, 10), gridspec_kw={'width_ratios':[1.15,1]})
@@ -56,10 +58,10 @@ for i, r in enumerate(cs):
     # connector
     ax.plot([xi-dx, xi+dx], [r['A_before'], r['A_after']], color=c, lw=1.4,
             alpha=0.45, zorder=2)
-    ax.errorbar(xi-dx, r['A_before'], yerr=r['u_b'], fmt='o', ms=10.5,
+    ax.errorbar(xi-dx, r['A_before'], yerr=r['u_before'], fmt='o', ms=10.5,
                 mfc='white', mec=c, mew=2.0, ecolor=c, elinewidth=1.4,
                 capsize=3.5, zorder=3)
-    ax.errorbar(xi+dx, r['A_after'], yerr=r['u_a'], fmt='o', ms=10.5,
+    ax.errorbar(xi+dx, r['A_after'], yerr=r['u_after'], fmt='o', ms=10.5,
                 color=c, mec=c, ecolor=c, elinewidth=1.4, capsize=3.5, zorder=3)
 ax.set_xticks(x); ax.set_xticklabels([f'S{i}' for i in x])
 ax.set_xlim(0.4, 8.6); ax.set_ylim(20, 52)
@@ -87,7 +89,7 @@ ax.axhline(100, ls=(0,(5,3)), color='#8A847C', lw=1.3, zorder=1)
 ax.set_axisbelow(True)
 rng = np.random.default_rng(7)
 for i, nuc in enumerate(order):
-    v = np.array(sorted(r['R_ret'] for r in rows if r['nuclide']==nuc))
+    v = np.array(sorted(r['R_percent'] for r in rows if r['nuclide']==nuc))
     n = len(v)
     jit = (np.arange(n) - (n-1)/2) * (0.30/max(n-1,1))
     ax.scatter(i-0.16+jit, v, s=62, color=COL[nuc], alpha=0.50, lw=0, zorder=3)
@@ -115,7 +117,7 @@ ax.legend(handles=handles, loc='lower right', fontsize=TICK-1, frameon=False,
 ax.text(0.0, 1.18, '(b)', transform=ax.transAxes, fontsize=LABEL,
         fontweight='bold', ha='left', va='top')
 ax.tick_params(direction='out', length=4.5)
-fig.savefig('/home/claude/pectin_rev/manuscript/figure/Fig4_revised.png', dpi=200)
+fig.savefig(FIG/'Fig4_revised.png', dpi=200)
 plt.close(fig)
 
 # ══════════════ Fig 5 ══════════════
@@ -124,8 +126,8 @@ plt.subplots_adjust(left=0.085, right=0.90, top=0.86, bottom=0.10)
 grid = np.full((4, 8), np.nan); unc = np.full((4, 8), np.nan); sig = np.zeros((4,8), bool)
 for r in rows:
     i, j = order.index(r['nuclide']), key(r)-1
-    grid[i, j] = r['Delta']; unc[i, j] = r['uR']
-    sig[i, j] = abs(r['Delta']) > 2*r['uR']
+    grid[i, j] = r['Delta_percent']; unc[i, j] = r['u_R']
+    sig[i, j] = abs(r['Delta_percent']) > 2*r['u_R']
 cmap = LinearSegmentedColormap.from_list('warmdiv',
         ['#B6423D', '#D98D8A', '#F6E9E8', '#FFFFFF', '#E4F0F1', '#8CC5C8', '#3E8F93'])
 im = ax.imshow(grid, cmap=cmap, vmin=-16, vmax=16, aspect='auto', zorder=1)
@@ -176,6 +178,6 @@ ax.add_patch(plt.Rectangle((7.62, 3.72), 0.22, 0.20, fill=False,
              edgecolor='#5A5550', lw=2.0, clip_on=False, zorder=6))
 ax.text(7.92, 3.82, r'$|\Delta| > 2u$', fontsize=13.5, color=INK2, va='center',
         ha='left', clip_on=False, zorder=6)
-fig.savefig('/home/claude/pectin_rev/manuscript/figure/Fig5_revised.png', dpi=200)
+fig.savefig(FIG/'Fig5_revised.png', dpi=200)
 plt.close(fig)
-print('v2 figures written')
+print(f'Written: {FIG/"Fig4_revised.png"}, {FIG/"Fig5_revised.png"}')
